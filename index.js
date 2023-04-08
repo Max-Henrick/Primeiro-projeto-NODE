@@ -30,10 +30,10 @@ const checkUserId = (request, response, next) => {// MIDDLEWARE tem como padrão
     const position = users.findIndex(user => user.id === id)// FUNÇAO USADA PARA PROCURAR UM ID, DENTRO DE UM ARRAY
 
     if (position < 0) {
-        return response.status(404).json({menssage: "Usuário não encontrado"})
+        return response.status(404).json({ menssage: "Usuário não encontrado" })
     }
 
-    
+
     request.userPosition = position // MIDDLEWARE tem o poder de criar parâmetros que podem ser chamados nas requisições
     request.userId = id // MIDDLEWARE tem o poder de criar parâmetros que podem ser chamados nas requisições
 
@@ -47,8 +47,8 @@ app.get('/users', (request, response) => {
 
 //- POST       => CRIAR INFORMAÇÕES NO BACK-END
 app.post('/users', (request, response) => {
-    const {name, age} = request.body
-    const user = {id: uuid.v4(), name, age}// UUID.V4() CRIAR UM ID ALEATÓRIO PARA O ARRAY
+    const { name, age } = request.body
+    const user = { id: uuid.v4(), name, age }// UUID.V4() CRIAR UM ID ALEATÓRIO PARA O ARRAY
     users.push(user)// PUSH ENVIA UM OBJETO PARA UM ARRAY
     return response.status(201).json(user)
 })
@@ -56,9 +56,9 @@ app.post('/users', (request, response) => {
 //- PUT/PATCH  => ALTERAR/ATUALIZAR INFORMAÇÕES NO BACK-END
 app.put('/users/:id', checkUserId, (request, response) => {
     const { name, age } = request.body
-    const  position = request.userPosition // MIDDLEWARE criou este parâmetro (userId), para otimizar o código. e o MIDDLEWARE ele fica responsavel por fazer o função
-    const  id = request.userId // MIDDLEWARE criou este parâmetro (userId), para otimizar o código. e o MIDDLEWARE ele fica responsavel por fazer o função
-    
+    const position = request.userPosition // MIDDLEWARE criou este parâmetro (userId), para otimizar o código. e o MIDDLEWARE ele fica responsavel por fazer o função
+    const id = request.userId // MIDDLEWARE criou este parâmetro (userId), para otimizar o código. e o MIDDLEWARE ele fica responsavel por fazer o função
+
 
     const updateUser = { id, name, age }
 
@@ -71,9 +71,9 @@ app.put('/users/:id', checkUserId, (request, response) => {
 app.delete('/users/:id', checkUserId, (request, response) => {
     const position = request.userPosition // MIDDLEWARE criou este parâmetro (userId), para otimizar o código. e o MIDDLEWARE ele fica responsavel por fazer o função
 
-    users.splice(position,1)// USADO PARA EXCLUIR OBJETOS DENTRO DE UM ARRAY
+    users.splice(position, 1)// USADO PARA EXCLUIR OBJETOS DENTRO DE UM ARRAY
 
-    return response.status(204)
+    return response.status(204).json()
 })
 
 
