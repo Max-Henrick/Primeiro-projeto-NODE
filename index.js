@@ -1,4 +1,5 @@
 const { request, response } = require('express')
+const cors = require('cors')
 const express = require('express')
 const uuid = require('uuid')
 
@@ -6,6 +7,7 @@ const uuid = require('uuid')
 const port = 3001
 const app = express()
 app.use(express.json())
+app.use(cors())
 
 /*
     QUERY PARAMS => https://localhost:3001/users?name=Max&age=35 // FILTROS
